@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/angular/protractor"
-
-    >protractor (v5.1.1)</a>
+    <a href="https://github.com/angular/protractor">protractor (v5.1.1)</a>
 </h1>
 <h4>Webdriver E2E test wrapper for Angular.</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.protractor">module protractor</a><ol>
 
@@ -83,7 +76,7 @@
 
             <a class="apidocElementLiA" href="#apidoc.element.protractor.Capabilities">
             function <span class="apidocSignatureSpan">protractor.</span>Capabilities
-            <span class="apidocSignatureSpan">(Capabilities|Map&#x3c;string, ?&#x3e;|Object)</span>
+            <span class="apidocSignatureSpan">(Capabilities|Map&lt;string, ?&gt;|Object)</span>
             </a>
 
         </li>
@@ -182,7 +175,7 @@
 
             <a class="apidocElementLiA" href="#apidoc.element.protractor.WebDriver">
             function <span class="apidocSignatureSpan">protractor.</span>WebDriver
-            <span class="apidocSignatureSpan">(Session|IThenable&#x3c;!Session&#x3e;)</span>
+            <span class="apidocSignatureSpan">(Session|IThenable&lt;!Session&gt;)</span>
             </a>
 
         </li>
@@ -191,7 +184,7 @@
 
             <a class="apidocElementLiA" href="#apidoc.element.protractor.WebElement">
             function <span class="apidocSignatureSpan">protractor.</span>WebElement
-            <span class="apidocSignatureSpan">(!IThenable&#x3c;string&#x3e;|string)</span>
+            <span class="apidocSignatureSpan">(!IThenable&lt;string&gt;|string)</span>
             </a>
 
         </li>
@@ -1065,7 +1058,7 @@
 
             <a class="apidocElementLiA" href="#apidoc.element.protractor.promise.MultipleUnhandledRejectionError">
             function <span class="apidocSignatureSpan">protractor.promise.</span>MultipleUnhandledRejectionError
-            <span class="apidocSignatureSpan">(Set&#x3c;*&#x3e;)</span>
+            <span class="apidocSignatureSpan">(Set&lt;*&gt;)</span>
             </a>
 
         </li>
@@ -1074,7 +1067,7 @@
 
             <a class="apidocElementLiA" href="#apidoc.element.protractor.promise.Promise">
             function <span class="apidocSignatureSpan">protractor.promise.</span>Promise
-            <span class="apidocSignatureSpan">( * function((T|IThenable&#x3c;T&#x3e;|Thenable)</span>
+            <span class="apidocSignatureSpan">( * function((T|IThenable&lt;T&gt;|Thenable)</span>
             </a>
 
         </li>
@@ -1476,7 +1469,7 @@
     /** @private {!./webdriver.WebDriver} */
     this.driver_ = driver;
 
-    /** @private {!Array&#x3c;{description: string, command: !command.Command}&#x3e;} */
+    /** @private {!Array&lt;{description: string, command: !command.Command}&gt;} */
     this.actions_ = [];
   }
 
@@ -1508,16 +1501,16 @@
     let actions = this.actions_.concat();
     let driver = this.driver_;
     return driver.controlFlow().execute(function() {
-      let results = actions.map(action =&#x3e; {
+      let results = actions.map(action =&gt; {
         return driver.schedule(action.command, action.description);
       });
       return Promise.all(results);
-    }, &#x27;ActionSequence.perform&#x27;);
+    }, 'ActionSequence.perform');
   }
 
   /**
    * Moves the mouse.  The location to move to may be specified in terms of the
-   * mouse&#x27;s current location, an offset relative to the top-left corner of an
+   * mouse's current location, an offset relative to the top-left corner of an
    * element, or an element (in which case the middle of the element is used).
    *
    * @param {(!./webdriver.WebElement|{x: number, y: number})} location The
@@ -1526,29 +1519,29 @@
    * @param {{x: number, y: number}=} opt_offset If the target {@code location}
    *     is defined as a {@link ./webdriver.WebElement}, this parameter defines
    *     an offset within that element. The offset should be specified in pixels
-   *     relative to the top-left corner of the element&#x27;s bounding box. If
-   *     omitted, the element&#x27;s center will be used as the target offset.
+   *     relative to the top-left corner of the element's bounding box. If
+   *     omitted, the element's center will be used as the target offset.
    * @return {!ActionSequence} A self reference.
    */
   mouseMove(location, opt_offset) {
     let cmd = new command.Command(command.Name.MOVE_TO);
 
-    if (typeof location.x === &#x27;number&#x27;) {
+    if (typeof location.x === 'number') {
       setOffset(/** @type {{x: number, y: number}} */(location));
     } else {
-      cmd.setParameter(&#x27;element&#x27;, location.getId());
+      cmd.setParameter('element', location.getId());
       if (opt_offset) {
         setOffset(opt_offset);
       }
     }
 
-    this.schedule_(&#x27;mouseMove&#x27;, cmd);
+    this.schedule_('mouseMove', cmd);
     return this;
 
     /** @param {{x: number, y: number}} offset The offset to use. */
     function setOffset(offset) {
-      cmd.setParameter(&#x27;xoffset&#x27;, offset.x || 0);
-      cmd.setParameter(&#x27;yoffset&#x27;, offset.y || 0);
+      cmd.setParameter('xoffset', offset.x || 0);
+      cmd.setParameter('yoffset', offset.y || 0);
     }
   }
 
@@ -1570,7 +1563,7 @@
   scheduleMouseAction_(
       description, commandName, opt_elementOrButton, opt_button) {
     let button;
-    if (typeof opt_elementOrButton === &#x27;number&#x27;) {
+    if (typeof opt_elementOrButton === 'number') {
       button = opt_elementOrButton;
     } else {
       if (opt_elementOrButton) {
@@ -1581,7 +1574,7 @@
     }
 
     let cmd = new command.Command(commandName).
-        setParameter(&#x27;button&#x27;, button);
+        setParameter('button', button);
     this.schedule_(d ...</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -1598,13 +1591,13 @@
     <li>description and source-code<pre class="apidocCodePre">class Builder {
   constructor() {
 <span class="apidocCodeCommentSpan">    /** @private @const */
-</span>    this.log_ = logging.getLogger(&#x27;webdriver.Builder&#x27;);
+</span>    this.log_ = logging.getLogger('webdriver.Builder');
 
     /** @private {promise.ControlFlow} */
     this.flow_ = null;
 
     /** @private {string} */
-    this.url_ = &#x27;&#x27;;
+    this.url_ = '';
 
     /** @private {?string} */
     this.proxy_ = null;
@@ -1639,7 +1632,7 @@
 
   /**
    * Configures this builder to ignore any environment variable overrides and to
-   * only use the configuration specified through this instance&#x27;s API.
+   * only use the configuration specified through this instance's API.
    *
    * @return {!Builder} A self reference.
    */
@@ -1674,7 +1667,7 @@
   }
 
   /**
-   * Sets the URL of the proxy to use for the WebDriver&#x27;s HTTP connections.
+   * Sets the URL of the proxy to use for the WebDriver's HTTP connections.
    * If this method is never called, the Builder will create a connection
    * without a proxy.
    *
@@ -1687,7 +1680,7 @@
   }
 
   /**
-   * @return {?string} The URL of the proxy server to use for the WebDriver&#x27;s
+   * @return {?string} The URL of the proxy server to use for the WebDriver's
    *    HTTP connections, or `null` if not set.
    */
   getWebDriverProxy() {
@@ -1754,17 +1747,17 @@
     <h2>
         <a href="#apidoc.element.protractor.Capabilities" id="apidoc.element.protractor.Capabilities">
         function <span class="apidocSignatureSpan">protractor.</span>Capabilities
-        <span class="apidocSignatureSpan">(Capabilities|Map&#x3c;string, ?&#x3e;|Object)</span>
+        <span class="apidocSignatureSpan">(Capabilities|Map&lt;string, ?&gt;|Object)</span>
         </a>
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class Capabilities extends Map {
 <span class="apidocCodeCommentSpan">  /**
-   * @param {(Capabilities|Map&#x3c;string, ?&#x3e;|Object)=} opt_other Another set of
+   * @param {(Capabilities|Map&lt;string, ?&gt;|Object)=} opt_other Another set of
    *     capabilities to initialize this instance from.
    */
 </span>  constructor(opt_other) {
-    if (opt_other &#x26;&#x26; !(opt_other instanceof Map)) {
+    if (opt_other &amp;&amp; !(opt_other instanceof Map)) {
       opt_other = toMap(opt_other);
     }
     super(opt_other);
@@ -1776,7 +1769,7 @@
   static android() {
     return new Capabilities()
         .set(Capability.BROWSER_NAME, Browser.ANDROID)
-        .set(Capability.PLATFORM, &#x27;ANDROID&#x27;);
+        .set(Capability.PLATFORM, 'ANDROID');
   }
 
   /**
@@ -1792,7 +1785,7 @@
   static edge() {
     return new Capabilities()
         .set(Capability.BROWSER_NAME, Browser.EDGE)
-        .set(Capability.PLATFORM, &#x27;WINDOWS&#x27;);
+        .set(Capability.PLATFORM, 'WINDOWS');
   }
 
   /**
@@ -1808,7 +1801,7 @@
   static ie() {
     return new Capabilities().
         set(Capability.BROWSER_NAME, Browser.INTERNET_EXPLORER).
-        set(Capability.PLATFORM, &#x27;WINDOWS&#x27;);
+        set(Capability.PLATFORM, 'WINDOWS');
   }
 
   /**
@@ -1817,7 +1810,7 @@
   static ipad() {
     return new Capabilities().
         set(Capability.BROWSER_NAME, Browser.IPAD).
-        set(Capability.PLATFORM, &#x27;MAC&#x27;);
+        set(Capability.PLATFORM, 'MAC');
   }
 
   /**
@@ -1826,7 +1819,7 @@
   static iphone() {
     return new Capabilities().
         set(Capability.BROWSER_NAME, Browser.IPHONE).
-        set(Capability.PLATFORM, &#x27;MAC&#x27;);
+        set(Capability.PLATFORM, 'MAC');
   }
 
   /**
@@ -1851,7 +1844,7 @@
   static safari() {
     return new Capabilities().
         set(Capability.BROWSER_NAME, Browser.SAFARI).
-        set(Capability.PLATFORM, &#x27;MAC&#x27;);
+        set(Capability.PLATFORM, 'MAC');
   }
 
   /**
@@ -1873,7 +1866,7 @@
   }
 
   /**
-   * @return {!Object&#x3c;string, ?&#x3e;} The JSON representation of this instance.
+   * @return {!Object&lt;string, ?&gt;} The JSON representation of this instance.
    *     Note, the returned object may contain nested promised values.
    * @suppress {checkTypes} Suppress [] access on a struct (state inherited from
    *     Map).
@@ -1884,13 +1877,13 @@
 
   /**
    * Merges another set of capabilities into this instance.
-   * @param {!(Capabilities|Map&#x3c;String, ?&#x3e;|Object&#x3c;string, ?&#x3e;)} other The other
+   * @param {!(Capabilities|Map&lt;String, ?&gt;|Object&lt;string, ?&gt;)} other The other
    *     set of capabilities to merge.
    * @return {!Capabilities} A self reference.
    */
   merge(other) {
     if (!other) {
-      throw new TypeError(&#x27;no capabilities provided for merge&#x27;);
+      throw new TypeError('no capabilities provided for merge');
     }
 
     if (!(other instanceof Map)) {
@@ -1912,7 +1905,7 @@
    * @override
    */
   set(key, value) {
-    if (typeof key !== &#x27;string&#x27;) { ...</pre></li>
+    if (typeof key !== 'string') { ...</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
@@ -1931,11 +1924,11 @@
     /** @private {string} */
     this.name_ = name;
 
-    /** @private {!Object&#x3c;*&#x3e;} */
+    /** @private {!Object&lt;*&gt;} */
     this.parameters_ = {};
   }
 
-  /** @return {string} This command&#x27;s name. */
+  /** @return {string} This command's name. */
   getName() {
     return this.name_;
   }
@@ -1953,7 +1946,7 @@
 
   /**
    * Sets the parameters for this command.
-   * @param {!Object&#x3c;*&#x3e;} parameters The command parameters.
+   * @param {!Object&lt;*&gt;} parameters The command parameters.
    * @return {!Command} A self reference.
    */
   setParameters(parameters) {
@@ -1971,7 +1964,7 @@
   }
 
   /**
-   * @return {!Object&#x3c;*&#x3e;} The parameters to send with this command.
+   * @return {!Object&lt;*&gt;} The parameters to send with this command.
    */
   getParameters() {
     return this.parameters_;
@@ -1998,9 +1991,9 @@
         this.actionResults_ = actionResults_;
         // TODO(juliemr): might it be easier to combine this with our docs and just
         // wrap each one explicity with its own documentation?
-        WEB_ELEMENT_FUNCTIONS.forEach((fnName) =&#x3e; {
-            this[fnName] = (...args) =&#x3e; {
-                let actionFn = (webElem) =&#x3e; {
+        WEB_ELEMENT_FUNCTIONS.forEach((fnName) =&gt; {
+            this[fnName] = (...args) =&gt; {
+                let actionFn = (webElem) =&gt; {
                     return webElem[fnName].apply(webElem, args);
                 };
                 return this.applyAction_(actionFn);
@@ -2015,7 +2008,7 @@
 </span>    clone() {
         // A shallow copy is all we need since the underlying fields can never be
         // modified. (Locator can be modified by the user, but that should
-        // rarely/never happen and it doesn&#x27;t affect functionalities).
+        // rarely/never happen and it doesn't affect functionalities).
         return new ElementArrayFinder(this.browser_, this.getWebElements, this.locator_, this.actionResults_);
     }
     /**
@@ -2026,47 +2019,47 @@
      *
      * @alias element.all(locator).all(locator)
      * @view
-     * &#x3c;div id=&#x27;id1&#x27; class=&#x22;parent&#x22;&#x3e;
-     *   &#x3c;ul&#x3e;
-     *     &#x3c;li class=&#x22;foo&#x22;&#x3e;1a&#x3c;/li&#x3e;
-     *     &#x3c;li class=&#x22;baz&#x22;&#x3e;1b&#x3c;/li&#x3e;
-     *   &#x3c;/ul&#x3e;
-     * &#x3c;/div&#x3e;
-     * &#x3c;div id=&#x27;id2&#x27; class=&#x22;parent&#x22;&#x3e;
-     *   &#x3c;ul&#x3e;
-     *     &#x3c;li class=&#x22;foo&#x22;&#x3e;2a&#x3c;/li&#x3e;
-     *     &#x3c;li class=&#x22;bar&#x22;&#x3e;2b&#x3c;/li&#x3e;
-     *   &#x3c;/ul&#x3e;
-     * &#x3c;/div&#x3e;
+     * &lt;div id='id1' class="parent"&gt;
+     *   &lt;ul&gt;
+     *     &lt;li class="foo"&gt;1a&lt;/li&gt;
+     *     &lt;li class="baz"&gt;1b&lt;/li&gt;
+     *   &lt;/ul&gt;
+     * &lt;/div&gt;
+     * &lt;div id='id2' class="parent"&gt;
+     *   &lt;ul&gt;
+     *     &lt;li class="foo"&gt;2a&lt;/li&gt;
+     *     &lt;li class="bar"&gt;2b&lt;/li&gt;
+     *   &lt;/ul&gt;
+     * &lt;/div&gt;
      *
      * @example
-     * let foo = element.all(by.css(&#x27;.parent&#x27;)).all(by.css(&#x27;.foo&#x27;));
-     * expect(foo.getText()).toEqual([&#x27;1a&#x27;, &#x27;2a&#x27;]);
-     * let baz = element.all(by.css(&#x27;.parent&#x27;)).all(by.css(&#x27;.baz&#x27;));
-     * expect(baz.getText()).toEqual([&#x27;1b&#x27;]);
-     * let nonexistent = element.all(by.css(&#x27;.parent&#x27;))
-     *   .all(by.css(&#x27;.NONEXISTENT&#x27;));
-     * expect(nonexistent.getText()).toEqual([&#x27;&#x27;]);
+     * let foo = element.all(by.css('.parent')).all(by.css('.foo'));
+     * expect(foo.getText()).toEqual(['1a', '2a']);
+     * let baz = element.all(by.css('.parent')).all(by.css('.baz'));
+     * expect(baz.getText()).toEqual(['1b']);
+     * let nonexistent = element.all(by.css('.parent'))
+     *   .all(by.css('.NONEXISTENT'));
+     * expect(nonexistent.getText()).toEqual(['']);
      *
      * // Or using the shortcut $$() notation instead of element.all(by.css()):
      *
-     * let foo = $$(&#x27;.parent&#x27;).$$(&#x27;.foo&#x27;);
-     * expect(foo.getText()).toEqual([&#x27;1a&#x27;, &#x27;2a&#x27;]);
-     * let baz = $$(&#x27;.parent&#x27;).$$(&#x27;.baz&#x27;);
-     * expect(baz.getText()).toEqual([&#x27;1b&#x27;]);
-     * let nonexistent = $$(&#x27;.parent&#x27;).$$(&#x27;.NONEXISTENT&#x27;);
-     * expect(nonexistent.getText()).toEqual([&#x27;&#x27;]);
+     * let foo = $$('.parent').$$('.foo');
+     * expect(foo.getText()).toEqual(['1a', '2a']);
+     * let baz = $$('.parent').$$('.baz');
+     * expect(baz.getText()).toEqual(['1b']);
+     * let nonexistent = $$('.parent').$$('.NONEXISTENT');
+     * expect(nonexistent.getText()).toEqual(['']);
      *
      * @param {webdriver.Locator} subLocator
      * @returns {ElementArrayFinder}
      */
     all(locator) {
         let ptor = this.browser_;
-        let getWebElements = () =&#x3e; {
+        let getWebElements = () =&gt; {
             if (this.getWebElements === null) {
                 // This is the first time we are looking for an element
-                return ptor.waitForAngular(&#x27;Locator: &#x27; + locator)
-                    .then(() =&#x3e; {
+                return ptor.waitForAngular('Locator: ' + locator)
+                    .then(() =&gt; {
                     if (locators_1.isProtractorLocator(locator)) {
                         return locator.findElementsOverride(ptor.driver, null, ptor.rootEl);
                     }
@@ -2076,10 +2069,10 @@
                 });
             }
             else {
-                return this.getWebElements().then((parentWebElements) =&#x3e; {
+                return this.getWebElements().then((parentWebElements) =&gt; {
                     // For each parent web element, find their children and construct
-                    // a list of Promise&#x3c;List&#x3c;child_web_element&#x3e;&#x3e;
-                    let childrenPromiseList = parentWebElements.map((parentWebElement) =&#x3e; {
+                    // a list of Promise&lt;List&lt;child_web_element&gt;&gt;
+                    let childrenPromiseList = parentWebElements.map((parentWebElement) =&gt; {
                         return locators_1.isProtractorLocator(locator) ?
                             locator.findElementsOverride(ptor.driver, parentWebElement, ptor.rootEl) :
                             parentWebElement.findElements(locator);
@@ -2102,7 +2095,7 @@
         this.browser_ = browser_;
         this.then = null;
         if (!elementArrayFinder) {
-            throw new Error(&#x27;BUG: elementArrayFinder cannot be empty&#x27;);
+            throw new Error('BUG: elementArrayFinder cannot be empty');
         }
         this.parentElementArrayFinder = elementArrayFinder;
         // Only have a `then` method if the parent element array finder
@@ -2110,8 +2103,8 @@
         if (this.parentElementArrayFinder.actionResults_) {
             // Access the underlying actionResult of ElementFinder.
             this.then =
-                    (fn, errorFn) =&#x3e; {
-                    return this.elementArrayFinder_.then((actionResults) =&#x3e; {
+                    (fn, errorFn) =&gt; {
+                    return this.elementArrayFinder_.then((actionResults) =&gt; {
                         if (!fn) {
                             return actionResults[0];
                         }
@@ -2122,16 +2115,16 @@
         // This filter verifies that there is only 1 element returned by the
         // elementArrayFinder. It will warn if there are more than 1 element and
         // throw an error if there are no elements.
-        let getWebElements = () =&#x3e; {
-            return elementArrayFinder.getWebElements().then((webElements) =&#x3e; {
+        let getWebElements = () =&gt; {
+            return elementArrayFinder.getWebElements().then((webElements) =&gt; {
                 if (webElements.length === 0) {
-                    throw new selenium_webdriver_1.error.NoSuchElementError(&#x27;No element found using locator: &#x27; + elementArrayFinder
+                    throw new selenium_webdriver_1.error.NoSuchElementError('No element found using locator: ' + elementArrayFinder
 .locator().toString());
                 }
                 else {
-                    if (webElements.length &#x3e; 1) {
-                        logger.warn(&#x27;more than one element found for locator &#x27; +
-                            elementArrayFinder.locator().toString() + &#x27; - the first result will be used&#x27;);
+                    if (webElements.length &gt; 1) {
+                        logger.warn('more than one element found for locator ' +
+                            elementArrayFinder.locator().toString() + ' - the first result will be used');
                     }
                     return [webElements[0]];
                 }
@@ -2141,8 +2134,8 @@
         // restrictive getWebElements (which checks that there is only 1 element).
         this.elementArrayFinder_ = new ElementArrayFinder(this.browser_, getWebElements, elementArrayFinder.locator(), elementArrayFinder
 .actionResults_);
-        WEB_ELEMENT_FUNCTIONS.forEach((fnName) =&#x3e; {
-            (this)[fnName] = (...args) =&#x3e; {
+        WEB_ELEMENT_FUNCTIONS.forEach((fnName) =&gt; {
+            (this)[fnName] = (...args) =&gt; {
                 return (this.elementArrayFinder_)[fnName]
                     .apply(this.elementArrayFinder_, args)
                     .toElementFinder_();
@@ -2150,7 +2143,7 @@
         });
     }
     static fromWebElement_(browser, webElem, locator) {
-        let getWebElements = () =&#x3e; {
+        let getWebElements = () =&gt; {
             return selenium_webdriver_1.promise.when([webElem]);
         };
         return new ElementArrayFinder(browser, getWebElements, locator).toElementFinder_();
@@ -2175,25 +2168,25 @@
     }
     /**
      * Returns the WebElement represented by this ElementFinder.
-     * Throws the WebDriver error if the element doesn&#x27;t exist.
+     * Throws the WebDriver error if the element doesn't exist.
      *
      * @alias element(locator).getWebElement()
      * @view
-     * &#x3c;div class=&#x22;parent&#x22;&#x3e;
+     * &lt;div class="parent"&gt;
      *   some text
-     * &#x3c;/div&#x3e;
+     * &lt;/div&gt;
      *
      * @example
      * // The following four expressions are equivalent.
-     * $(&#x27;.parent&#x27;).getWebElement();
-     * element(by.css(&#x27;.parent&#x27;)).getWebElement();
-     * browser.driver.findElement(by.css(&#x27;.parent&#x27;));
-     * browser.findElement(by.css(&#x27;.parent&#x27;));
+     * $('.parent').getWebElement();
+     * element(by.css('.parent')).getWebElement();
+     * browser.driver.findElement(by.css('.parent'));
+     * browser.findElement(by.css('.parent'));
      *
      * @returns {webdriver.WebElementPromise}
      */
     getWebElement() {
-        let id = this.elementArrayFinder_.getWebElements().then((parentWebElements) =&#x3e; {
+        let id = this.elementArrayFinder_.getWebElements().then((parentWebElements) =&gt; {
             return parentWebElements[0];
         });
         return new selenium_webdriver_1.WebElementPromise(this.browser_.driver, ...</pre></li>
@@ -2237,7 +2230,7 @@
   /**
    * Returns a mutable list of listeners for a specific type of event.
    * @param {string} type The type of event to retrieve the listeners for.
-   * @return {!Set&#x3c;!Listener&#x3e;} The registered listeners for the given event
+   * @return {!Set&lt;!Listener&gt;} The registered listeners for the given event
    *     type.
    */
   listeners(type) {
@@ -2317,9 +2310,9 @@
    * @return {!EventEmitter} A self reference.
    */
   removeListener(type, listenerFn) {
-    if (typeof type !== &#x27;string&#x27; || typeof listenerFn !== &#x27;function&#x27;) {
-      throw TypeError(&#x27;invalid args: expected (string, function), got (&#x27;
-          + (typeof type) + &#x27;, &#x27; + (typeof listenerFn) + &#x27;)&#x27;);
+    if (typeof type !== 'string' || typeof listenerFn !== 'function') {
+      throw TypeError('invalid args: expected (string, function), got ('
+          + (typeof type) + ', ' + (typeof listenerFn) + ')');
     }
 
     let events = EVENTS.get(this);
@@ -2369,7 +2362,7 @@
    *
    * @param {!./webdriver.WebDriver} driver The driver for the current browser.
    * @param {string} path The path to process.
-   * @return {!Promise&#x3c;string&#x3e;} A promise for the processed file path.
+   * @return {!Promise&lt;string&gt;} A promise for the processed file path.
    * @package
    */
 </span>  handleFile(driver, path) {
@@ -2394,7 +2387,7 @@
         // These functions should delegate to the webdriver instance, but should
         // wait for Angular to sync up before performing the action. This does not
         // include functions which are overridden by protractor below.
-        let methodsToSync = [&#x27;getCurrentUrl&#x27;, &#x27;getPageSource&#x27;, &#x27;getTitle&#x27;];
+        let methodsToSync = ['getCurrentUrl', 'getPageSource', 'getTitle'];
         let extendWDInstance;
         try {
             extendWDInstance = webdriver_js_extender_1.extend(webdriverInstance);
@@ -2405,8 +2398,8 @@
             extendWDInstance = webdriverInstance;
         }
         // Mix all other driver functionality into Protractor.
-        Object.getOwnPropertyNames(selenium_webdriver_1.WebDriver.prototype).forEach(method =&#x3e; {
-            if (!this[method] &#x26;&#x26; typeof extendWDInstance[method] === &#x27;function&#x27;) {
+        Object.getOwnPropertyNames(selenium_webdriver_1.WebDriver.prototype).forEach(method =&gt; {
+            if (!this[method] &amp;&amp; typeof extendWDInstance[method] === 'function') {
                 if (methodsToSync.indexOf(method) !== -1) {
                     ptorMixin(this, extendWDInstance, method, this.waitForAngular.bind(this));
                 }
@@ -2417,46 +2410,46 @@
         });
         this.driver = extendWDInstance;
         if (opt_blockingProxyUrl) {
-            logger.info(&#x27;Starting BP client for &#x27; + opt_blockingProxyUrl);
+            logger.info('Starting BP client for ' + opt_blockingProxyUrl);
             this.bpClient = new blocking_proxy_1.BPClient(opt_blockingProxyUrl);
         }
         this.element = buildElementHelper(this);
         this.$ = element_1.build$(this.element, selenium_webdriver_1.By);
         this.$$ = element_1.build$$(this.element, selenium_webdriver_1.By);
-        this.baseUrl = opt_baseUrl || &#x27;&#x27;;
+        this.baseUrl = opt_baseUrl || '';
         this.getPageTimeout = DEFAULT_GET_PAGE_TIMEOUT;
         this.params = {};
         this.resetUrl = DEFAULT_RESET_URL;
         this.debugHelper = new debugger_1.DebugHelper(this);
         let ng12Hybrid_ = false;
-        Object.defineProperty(this, &#x27;ng12Hybrid&#x27;, {
+        Object.defineProperty(this, 'ng12Hybrid', {
             get: function () {
                 return ng12Hybrid_;
             },
             set: function (ng12Hybrid) {
                 if (ng12Hybrid) {
-                    logger.warn(&#x27;You have set ng12Hybrid.  As of Protractor 4.1.0, &#x27; +
-                        &#x27;Protractor can automatically infer if you are using an &#x27; +
-                        &#x27;ngUpgrade app (as long as ng1 is loaded before you call &#x27; +
-                        &#x27;platformBrowserDynamic()), and this flag is no longer needed &#x27; +
-                        &#x27;for most users&#x27;);
+                    logger.warn('You have set ng12Hybrid.  As of Protractor 4.1.0, ' +
+                        'Protractor can automatically infer if you are using an ' +
+                        'ngUpgrade app (as long as ng1 is loaded before you call ' +
+                        'platformBrowserDynamic()), and this flag is no longer needed ' +
+                        'for most users');
                 }
                 ng12Hybrid_ = ng12Hybrid;
             }
         });
-        this.ready = this.angularAppRoot(opt_rootElement || &#x27;&#x27;)
-            .then(() =&#x3e; {
+        this.ready = this.angularAppRoot(opt_rootElement || '')
+            .then(() =&gt; {
             return this.driver.getSession();
         })
-            .then((session) =&#x3e; {
+            .then((session) =&gt; {
             // Internet Explorer does not accept data URLs, which are the default
             // reset URL for Protractor.
             // Safari accepts data urls, but SafariDriver fails after one is used.
-            // PhantomJS produces a &#x22;Detected a page unload event&#x22; if we use data urls
-            let browserName = session.getCapabilities().get(&#x27;browserName&#x27;);
-            if (browserName === &#x27;internet explorer&#x27; || browserName === &#x27;safari&#x27; ||
-                browserName === &#x27;phantomjs&#x27; || browserName === &#x27;MicrosoftEdge&#x27;) {
-                this.resetUrl = &#x27;about:blank&#x27;;
+            // PhantomJS produces a "Detected a page unload event" if we use data urls
+            let browserName = session.getCapabilities().get('browserName');
+            if (browserName === 'internet explorer' || browserName === 'safari' ||
+                browserName === 'phantomjs' || browserName === 'MicrosoftEdge') {
+                this.resetUrl = 'about:blank';
             }
             return this;
         });
@@ -2468,7 +2461,7 @@
     }
     /**
      * The css selector for an element on which to find Angular. This is usually
-     * &#x27;body&#x27; but if your ng-app is on a subsection of the page it may be
+     * 'body' but if your ng-app is on a subsection of the page it may be
      * a subelement.
      *
      * This property is dep ...</pre></li>
@@ -2490,17 +2483,17 @@
      * used with element(by.locatorName(args)).
      *
      * @view
-     * &#x3c;button ng-click=&#x22;doAddition()&#x22;&#x3e;Go!&#x3c;/button&#x3e;
+     * &lt;button ng-click="doAddition()"&gt;Go!&lt;/button&gt;
      *
      * @example
      * // Add the custom locator.
-     * by.addLocator(&#x27;buttonTextSimple&#x27;,
+     * by.addLocator('buttonTextSimple',
      *     function(buttonText, opt_parentElement, opt_rootSelector) {
      *   // This function will be serialized as a string and will execute in the
      *   // browser. The first argument is the text for the button. The second
      *   // argument is the parent element, if any.
      *   var using = opt_parentElement || document,
-     *       buttons = using.querySelectorAll(&#x27;button&#x27;);
+     *       buttons = using.querySelectorAll('button');
      *
      *   // Return an array of buttons with the text.
      *   return Array.prototype.filter.call(buttons, function(button) {
@@ -2509,7 +2502,7 @@
      * });
      *
      * // Use the custom locator.
-     * element(by.buttonTextSimple(&#x27;Go!&#x27;)).click();
+     * element(by.buttonTextSimple('Go!')).click();
      *
      * @alias by.addLocator(locatorName, functionOrScript)
      * @param {string} name The name of the new locator.
@@ -2520,20 +2513,20 @@
      *     element. It should return an array of elements.
      */
 </span>    addLocator(name, script) {
-        this[name] = (...args) =&#x3e; {
+        this[name] = (...args) =&gt; {
             let locatorArguments = args;
             return {
-                findElementsOverride: (driver, using, rootSelector) =&#x3e; {
+                findElementsOverride: (driver, using, rootSelector) =&gt; {
                     let findElementArguments = [script];
-                    for (let i = 0; i &#x3c; locatorArguments.length; i++) {
+                    for (let i = 0; i &lt; locatorArguments.length; i++) {
                         findElementArguments.push(locatorArguments[i]);
                     }
                     findElementArguments.push(using);
                     findElementArguments.push(rootSelector);
                     return driver.findElements(selenium_webdriver_1.By.js.apply(selenium_webdriver_1.By, findElementArguments));
                 },
-                toString: () =&#x3e; {
-                    return &#x27;by.&#x27; + name + &#x27;(&#x22;&#x27; + Array.prototype.join.call(locatorArguments, &#x27;&#x22;, &#x22;&#x27;) + &#x27;&#x22;)&#x27;;
+                toString: () =&gt; {
+                    return 'by.' + name + '("' + Array.prototype.join.call(locatorArguments, '", "') + '")';
                 }
             };
         };
@@ -2549,34 +2542,34 @@
      * if they are used.
      *
      * @view
-     * &#x3c;span&#x3e;{{person.name}}&#x3c;/span&#x3e;
-     * &#x3c;span ng-bind=&#x22;person.email&#x22;&#x3e;&#x3c;/span&#x3e;
+     * &lt;span&gt;{{person.name}}&lt;/span&gt;
+     * &lt;span ng-bind="person.email"&gt;&lt;/span&gt;
      *
      * @example
-     * var span1 = element(by.binding(&#x27;person.name&#x27;));
-     * expect(span1.getText()).toBe(&#x27;Foo&#x27;);
+     * var span1 = element(by.binding('person.name'));
+     * expect(span1.getText()).toBe('Foo');
      *
-     * var span2 = element(by.binding(&#x27;person.email&#x27;));
-     * expect(span2.getText()).toBe(&#x27;foo@bar.com&#x27;);
+     * var span2 = element(by.binding('person.email'));
+     * expect(span2.getText()).toBe('foo@bar.com');
      *
      * // You can also use a substring for a partial match
-     * var span1alt = element(by.binding(&#x27;name&#x27;));
-     * expect(span1alt.getText()).toBe(&#x27;Foo&#x27;);
+     * var span1alt = element(by.binding('name'));
+     * expect(span1alt.getText()).toBe('Foo');
      *
      * // This works for sites using Angular 1.2 but NOT 1.3
-     * var deprecatedSyntax = element(by.binding(&#x27;{{person.name}}&#x27;));
+     * var deprecatedSyntax = element(by.binding('{{person.name}}'));
      *
      * @param {string} bindingDescriptor
      * @returns {ProtractorLocator} location strategy
      */
     binding(bindingDescriptor) {
         return {
-            findElementsOverride: (driver, using, rootSelector) =&#x3e; {
+            findElementsOverride: (driver, using, rootSelector) =&gt; {
                 return driver.findElements(selenium_webdriver_1.By.js(clientSideScripts.findBindings, bindingDescriptor, false,
 using, rootSelector));
             },
-            toString: () =&#x3e; {
-                return &#x27;by.binding(&#x22;&#x27; + bindingDescriptor + &#x27;&#x22;)&#x27;;
+            toString: () =&gt; {
+                return 'by.binding("' + bindingDescriptor + '")';
             }
         };
     }
@@ -2585,7 +2578,7 @@ using, rootSelector));
      * Find an element by exact binding.
      *
      * @view
-     * &#x3c;span&#x3e; ...</pre></li>
+     * &lt;span&gt; ...</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
@@ -2608,8 +2601,8 @@ using, rootSelector));
      *
      * @example
      * var EC = protractor.ExpectedConditions;
-     * var titleIsNotFoo = EC.not(EC.titleIs(&#x27;Foo&#x27;));
-     * // Waits for title to become something besides &#x27;foo&#x27;.
+     * var titleIsNotFoo = EC.not(EC.titleIs('Foo'));
+     * // Waits for title to become something besides 'foo'.
      * browser.wait(titleIsNotFoo, 5000);
      *
      * @alias ExpectedConditions.not
@@ -2618,8 +2611,8 @@ using, rootSelector));
      * @returns {!function} An expected condition that returns the negated value.
      */
 </span>    not(expectedCondition) {
-        return () =&#x3e; {
-            return expectedCondition().then((bool) =&#x3e; {
+        return () =&gt; {
+            return expectedCondition().then((bool) =&gt; {
                 return !bool;
             });
         };
@@ -2630,19 +2623,19 @@ using, rootSelector));
      *
      * @private
      * @param {boolean} defaultRet
-     * @param {Array.&#x3c;Function&#x3e;} fns An array of expected conditions to chain.
+     * @param {Array.&lt;Function&gt;} fns An array of expected conditions to chain.
      *
      * @returns {!function} An expected condition that returns a promise which
      *     evaluates to the result of the logical chain.
      */
     logicalChain_(defaultRet, fns) {
         let self = this;
-        return () =&#x3e; {
+        return () =&gt; {
             if (fns.length === 0) {
                 return defaultRet;
             }
             let fn = fns[0];
-            return fn().then((bool) =&#x3e; {
+            return fn().then((bool) =&gt; {
                 if (bool === defaultRet) {
                     return self.logicalChain_(defaultRet, fns.slice(1))();
                 }
@@ -2658,13 +2651,13 @@ using, rootSelector));
      *
      * @example
      * var EC = protractor.ExpectedConditions;
-     * var titleContainsFoo = EC.titleContains(&#x27;Foo&#x27;);
-     * var titleIsNotFooBar = EC.not(EC.titleIs(&#x27;FooBar&#x27;));
-     * // Waits for title to contain &#x27;Foo&#x27;, but is not &#x27;FooBar&#x27;
+     * var titleContainsFoo = EC.titleContains('Foo');
+     * var titleIsNotFooBar = EC.not(EC.titleIs('FooBar'));
+     * // Waits for title to contain 'Foo', but is not 'FooBar'
      * browser.wait(EC.and(titleContainsFoo, titleIsNotFooBar), 5000);
      *
      * @alias ExpectedConditions.and
-     * @param {Array.&#x3c;Function&#x3e;} fns An array of expected conditions to &#x27;and&#x27;
+     * @param {Array.&lt;Function&gt;} fns An array of expected conditions to 'and'
      * together.
      *
      * @returns {!function} An expected condition that returns a promise which
@@ -2680,12 +2673,12 @@ using, rootSelector));
      * @alias ExpectedConditions.or
      * @example
      * var EC = protractor.ExpectedConditions;
-     * var titleContainsFoo = EC.titleContains(&#x27;Foo&#x27;);
-     * var titleContainsBar = EC.titleContains(&#x27;Bar&#x27;);
-     * // Waits for title to contain either &#x27;Foo&#x27; or &#x27;Bar&#x27;
+     * var titleContainsFoo = EC.titleContains('Foo');
+     * var titleContainsBar = EC.titleContains('Bar');
+     * // Waits for title to contain either 'Foo' or 'Bar'
      * browser.wait(EC.or(titleContainsFoo, titleContainsBar), 5000);
      *
-     * @param {Array.&#x3c;Function&#x3e;} fns An array of expected conditions to &#x27;or&#x27;
+     * @param {Array.&lt;Function&gt;} fns An array of expected conditions to 'or'
      * together.
      *
      * @returns {!function} An expected condition that returns a promise which
@@ -2707,10 +2700,10 @@ using, rootSelector));
      *     representing whether an alert is present.
      */
     alertIsPresent() {
-        return () =&#x3e; {
-            return this.browser.driver.switchTo().alert().then(() =&#x3e; {
+        return () =&gt; {
+            return this.browser.driver.switchTo().alert().then(() =&gt; {
                 return true;
-            }, (err) =&#x3e; {
+            }, (err) =&gt; {
                 if (err instanceof selenium_webdriver_1.error.NoSuchAlertError) {
                     return false;
                 }
@@ -2740,11 +2733,11 @@ using, rootSelector));
             return null;
         };
         // Export protractor classes.
-        this.ProtractorBrowser = require(&#x27;./browser&#x27;).ProtractorBrowser;
-        this.ElementFinder = require(&#x27;./element&#x27;).ElementFinder;
-        this.ElementArrayFinder = require(&#x27;./element&#x27;).ElementArrayFinder;
-        this.ProtractorBy = require(&#x27;./locators&#x27;).ProtractorBy;
-        this.ProtractorExpectedConditions = require(&#x27;./expectedConditions&#x27;).ProtractorExpectedConditions;
+        this.ProtractorBrowser = require('./browser').ProtractorBrowser;
+        this.ElementFinder = require('./element').ElementFinder;
+        this.ElementArrayFinder = require('./element').ElementArrayFinder;
+        this.ProtractorBy = require('./locators').ProtractorBy;
+        this.ProtractorExpectedConditions = require('./expectedConditions').ProtractorExpectedConditions;
         // Export selenium webdriver.
         this.ActionSequence = webdriver.ActionSequence;
         this.Browser = webdriver.Browser;
@@ -2763,8 +2756,8 @@ using, rootSelector));
         this.logging = webdriver.logging;
         this.promise = webdriver.promise;
         this.until = webdriver.until;
-        this.Command = require(&#x27;selenium-webdriver/lib/command&#x27;).Command;
-        this.CommandName = require(&#x27;selenium-webdriver/lib/command&#x27;).Name;
+        this.Command = require('selenium-webdriver/lib/command').Command;
+        this.CommandName = require('selenium-webdriver/lib/command').Name;
         this.utils = { firefox: firefox, http: http, remote: remote, chrome: chrome };
     }
 }</pre></li>
@@ -2798,14 +2791,14 @@ using, rootSelector));
   }
 
   /**
-   * @return {string} This session&#x27;s ID.
+   * @return {string} This session's ID.
    */
   getId() {
     return this.id_;
   }
 
   /**
-   * @return {!Capabilities} This session&#x27;s capabilities.
+   * @return {!Capabilities} This session's capabilities.
    */
   getCapabilities() {
     return this.caps_;
@@ -2837,13 +2830,13 @@ using, rootSelector));
     <h2>
         <a href="#apidoc.element.protractor.WebDriver" id="apidoc.element.protractor.WebDriver">
         function <span class="apidocSignatureSpan">protractor.</span>WebDriver
-        <span class="apidocSignatureSpan">(Session|IThenable&#x3c;!Session&#x3e;)</span>
+        <span class="apidocSignatureSpan">(Session|IThenable&lt;!Session&gt;)</span>
         </a>
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class WebDriver {
 <span class="apidocCodeCommentSpan">  /**
-   * @param {!(Session|IThenable&#x3c;!Session&#x3e;)} session Either a known session or a
+   * @param {!(Session|IThenable&lt;!Session&gt;)} session Either a known session or a
    *     promise that will be resolved to a session.
    * @param {!command.Executor} executor The executor to use when sending
    *     commands to the browser.
@@ -2856,8 +2849,8 @@ using, rootSelector));
     /** @private {!promise.ControlFlow} */
     this.flow_ = opt_flow || promise.controlFlow();
 
-    /** @private {!promise.Thenable&#x3c;!Session&#x3e;} */
-    this.session_ = this.flow_.promise(resolve =&#x3e; resolve(session));
+    /** @private {!promise.Thenable&lt;!Session&gt;} */
+    this.session_ = this.flow_.promise(resolve =&gt; resolve(session));
 
     /** @private {!command.Executor} */
     this.executor_ = executor;
@@ -2882,9 +2875,9 @@ using, rootSelector));
   static attachToSession(executor, sessionId, opt_flow) {
     let flow = opt_flow || promise.controlFlow();
     let cmd = new command.Command(command.Name.DESCRIBE_SESSION)
-        .setParameter(&#x27;sessionId&#x27;, sessionId);
+        .setParameter('sessionId', sessionId);
     let session = flow.execute(
-        () =&#x3e; executeCommand(executor, cmd).catch(err =&#x3e; {
+        () =&gt; executeCommand(executor, cmd).catch(err =&gt; {
           // The DESCRIBE_SESSION command is not supported by the W3C spec, so
           // if we get back an unknown command, just return a session with
           // unknown capabilities.
@@ -2893,14 +2886,14 @@ using, rootSelector));
           }
           throw err;
         }),
-        &#x27;WebDriver.attachToSession()&#x27;);
+        'WebDriver.attachToSession()');
     return new WebDriver(session, executor, flow);
   }
 
   /**
    * Creates a new WebDriver session.
    *
-   * By default, the requested session `capabilities` are merely &#x22;desired&#x22; and
+   * By default, the requested session `capabilities` are merely "desired" and
    * the remote end will still create a new session even if it cannot satisfy
    * all of the requested capabilities. You can query which capabilities a
    * session actually has using the
@@ -2913,8 +2906,8 @@ using, rootSelector));
    * cannot create a session with all of the required capabilities, it will
    * return an {@linkplain error.SessionNotCreatedError}.
    *
-   *     let required = new Capabilities().set(&#x27;browserName&#x27;, &#x27;firefox&#x27;);
-   *     let desired = new Capabilities().set(&#x27;version&#x27;, &#x27;45&#x27;);
+   *     let required = new Capabilities().set('browserName', 'firefox');
+   *     let desired = new Capabilities().set('version', '45');
    *     let driver = WebDriver.createSession(executor, {required, desired});
    *
    * This function will always return a WebDriver instance. If there is an error
@@ -2929,7 +2922,7 @@ using, rootSelector));
    *
    *     // If the createSession operation failed, then this command will also
    *     // also fail, propagating the creation failure.
-   *     driver.get(&#x27;http://www.google.com&#x27;).catch(e =&#x3e; console.log(e));
+   *     driver.get('http://www.google.com').catch(e =&gt; console.log(e));
    * ...</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -2939,28 +2932,28 @@ using, rootSelector));
     <h2>
         <a href="#apidoc.element.protractor.WebElement" id="apidoc.element.protractor.WebElement">
         function <span class="apidocSignatureSpan">protractor.</span>WebElement
-        <span class="apidocSignatureSpan">(!IThenable&#x3c;string&#x3e;|string)</span>
+        <span class="apidocSignatureSpan">(!IThenable&lt;string&gt;|string)</span>
         </a>
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class WebElement {
 <span class="apidocCodeCommentSpan">  /**
    * @param {!WebDriver} driver the parent WebDriver instance for this element.
-   * @param {(!IThenable&#x3c;string&#x3e;|string)} id The server-assigned opaque ID for
+   * @param {(!IThenable&lt;string&gt;|string)} id The server-assigned opaque ID for
    *     the underlying DOM element.
    */
 </span>  constructor(driver, id) {
     /** @private {!WebDriver} */
     this.driver_ = driver;
 
-    /** @private {!promise.Thenable&#x3c;string&#x3e;} */
-    this.id_ = driver.controlFlow().promise(resolve =&#x3e; resolve(id));
+    /** @private {!promise.Thenable&lt;string&gt;} */
+    this.id_ = driver.controlFlow().promise(resolve =&gt; resolve(id));
   }
 
   /**
    * @param {string} id The raw ID.
    * @param {boolean=} opt_noLegacy Whether to exclude the legacy element key.
-   * @return {!Object} The element ID for use with WebDriver&#x27;s wire protocol.
+   * @return {!Object} The element ID for use with WebDriver's wire protocol.
    */
   static buildId(id, opt_noLegacy) {
     return opt_noLegacy
@@ -2976,14 +2969,14 @@ using, rootSelector));
    * @throws {TypeError} if the object is not a valid encoded ID.
    */
   static extractId(obj) {
-    if (obj &#x26;&#x26; typeof obj === &#x27;object&#x27;) {
-      if (typeof obj[ELEMENT_ID_KEY] === &#x27;string&#x27;) {
+    if (obj &amp;&amp; typeof obj === 'object') {
+      if (typeof obj[ELEMENT_ID_KEY] === 'string') {
         return obj[ELEMENT_ID_KEY];
-      } else if (typeof obj[LEGACY_ELEMENT_ID_KEY] === &#x27;string&#x27;) {
+      } else if (typeof obj[LEGACY_ELEMENT_ID_KEY] === 'string') {
         return obj[LEGACY_ELEMENT_ID_KEY];
       }
     }
-    throw new TypeError(&#x27;object is not a WebElement ID&#x27;);
+    throw new TypeError('object is not a WebElement ID');
   }
 
   /**
@@ -2991,9 +2984,9 @@ using, rootSelector));
    * @return {boolean} whether the object is a valid encoded WebElement ID.
    */
   static isId(obj) {
-    return obj &#x26;&#x26; typeof obj === &#x27;object&#x27;
-        &#x26;&#x26; (typeof obj[ELEMENT_ID_KEY] === &#x27;string&#x27;
-            || typeof obj[LEGACY_ELEMENT_ID_KEY] === &#x27;string&#x27;);
+    return obj &amp;&amp; typeof obj === 'object'
+        &amp;&amp; (typeof obj[ELEMENT_ID_KEY] === 'string'
+            || typeof obj[LEGACY_ELEMENT_ID_KEY] === 'string');
   }
 
   /**
@@ -3001,26 +2994,26 @@ using, rootSelector));
    *
    * @param {!WebElement} a A WebElement.
    * @param {!WebElement} b A WebElement.
-   * @return {!promise.Thenable&#x3c;boolean&#x3e;} A promise that will be
+   * @return {!promise.Thenable&lt;boolean&gt;} A promise that will be
    *     resolved to whether the two WebElements are equal.
    */
   static equals(a, b) {
     if (a === b) {
-      return a.driver_.controlFlow().promise(resolve =&#x3e; resolve(true));
+      return a.driver_.controlFlow().promise(resolve =&gt; resolve(true));
     }
     let ids = [a.getId(), b.getId()];
     return promise.all(ids).then(function(ids) {
-      // If the two element&#x27;s have the same ID, they should be considered
-      // equal. Otherwise, they may still be equivalent, but we&#x27;ll need to
+      // If the two element's have the same ID, they should be considered
+      // equal. Otherwise, they may still be equivalent, but we'll need to
       // ask the server to check for us.
       if (ids[0] === ids[1]) {
         return true;
       }
 
       let cmd = new command.Command(command.Name.ELEMENT_EQUALS);
-      cmd.setParameter(&#x27;id&#x27;, ids[0]);
-      cmd.setParameter(&#x27;other&#x27;, ids[1]);
-      return a.driver_.schedule(cmd, &#x27;WebElement.equals()&#x27;);
+      cmd.setParameter('id', ids[0]);
+      cmd.setParameter('other', ids[1]);
+      return a.driver_.schedule(cmd, 'WebElement.equals()');
     });
   }
 
@@ -3030,7 +3023,7 @@ using, rootSelector));
   }
 
   /**
-   * @return {!promise.Thenable&#x3c;string&#x3e;} A promise that resolves to
+   * @return {!promise.Thenable&lt;string&gt;} A promise that resolves to
    *     the server-assigned opaque ID assigned to this element.
    */
   getId() {
@@ -3046,19 +3039,19 @@ using, rootSelector));
 
   /**
    * Schedules a command that targets this element with the parent WebDriver
-   * instance. Will ensure this element&#x27;s ID is included in the command
-   * parameters under the &#x22;id&#x22; key.
+   * instance. Will ensure this element's ID is included in the command
+   * parameters under the "id" key.
    *
    * @param {!command.Command} command The command to schedule.
    * @param {string} description A description of the command for debugging.
-   * @return {!promise.Thenable&#x3c;T&#x3e;} A promise that will be resolved
+   * @return {!promise.Thenable&lt;T&gt;} A promise that will be resolved
    *     with the command result.
    * @template T
    * @see WebDriver#schedule
    * @private
    */
   schedule_(command, description) {
-    command.setParameter(&#x27;id&#x27;, this);
+    command.setParameter('id', this);
     return this.driver_.schedule(command, description);
   }
 
@@ -3085,11 +3078,11 @@ using, rootSelector));
 <span class="apidocCodeCommentSpan">  /**
    * @param {!WebDriver} driver The parent WebDriver instance for this
    *     element.
-   * @param {!promise.Thenable&#x3c;!WebElement&#x3e;} el A promise
+   * @param {!promise.Thenable&lt;!WebElement&gt;} el A promise
    *     that will resolve to the promised element.
    */
 </span>  constructor(driver, el) {
-    super(driver, &#x27;unused&#x27;);
+    super(driver, 'unused');
 
     /**
      * Cancel operation is only supported if the wrapped thenable is also
@@ -3159,7 +3152,7 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">chord = function (var_args) {
-  return Array.prototype.slice.call(arguments, 0).join(&#x27;&#x27;) + Key.NULL;
+  return Array.prototype.slice.call(arguments, 0).join('') + Key.NULL;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3768,25 +3761,25 @@ using, rootSelector));
     <li>description and source-code<pre class="apidocCodePre">function checkLegacyResponse(responseObj) {
   // Handle the legacy Selenium error response format.
   if (responseObj
-      &#x26;&#x26; typeof responseObj === &#x27;object&#x27;
-      &#x26;&#x26; typeof responseObj[&#x27;status&#x27;] === &#x27;number&#x27;
-      &#x26;&#x26; responseObj[&#x27;status&#x27;] !== 0) {
-    let status = responseObj[&#x27;status&#x27;];
+      &amp;&amp; typeof responseObj === 'object'
+      &amp;&amp; typeof responseObj['status'] === 'number'
+      &amp;&amp; responseObj['status'] !== 0) {
+    let status = responseObj['status'];
     let ctor = LEGACY_ERROR_CODE_TO_TYPE.get(status) || WebDriverError;
 
-    let value = responseObj[&#x27;value&#x27;];
+    let value = responseObj['value'];
 
-    if (!value || typeof value !== &#x27;object&#x27;) {
-      throw new ctor(value + &#x27;&#x27;);
+    if (!value || typeof value !== 'object') {
+      throw new ctor(value + '');
     } else {
-      let message = value[&#x27;message&#x27;] + &#x27;&#x27;;
+      let message = value['message'] + '';
       if (ctor !== UnexpectedAlertOpenError) {
         throw new ctor(message);
       }
 
-      let text = &#x27;&#x27;;
-      if (value[&#x27;alert&#x27;] &#x26;&#x26; typeof value[&#x27;alert&#x27;][&#x27;text&#x27;] === &#x27;string&#x27;) {
-        text = value[&#x27;alert&#x27;][&#x27;text&#x27;];
+      let text = '';
+      if (value['alert'] &amp;&amp; typeof value['alert']['text'] === 'string') {
+        text = value['alert']['text'];
       }
       throw new UnexpectedAlertOpenError(message, text);
     }
@@ -3806,7 +3799,7 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function checkResponse(data) {
-  if (data &#x26;&#x26; typeof data.error === &#x27;string&#x27;) {
+  if (data &amp;&amp; typeof data.error === 'string') {
     let ctor = ERROR_CODE_TO_TYPE.get(data.error) || WebDriverError;
     throw new ctor(data.message);
   }
@@ -3827,16 +3820,16 @@ using, rootSelector));
     <li>description and source-code<pre class="apidocCodePre">function encodeError(err) {
   let type = WebDriverError;
   if (err instanceof WebDriverError
-      &#x26;&#x26; TYPE_TO_ERROR_CODE.has(err.constructor)) {
+      &amp;&amp; TYPE_TO_ERROR_CODE.has(err.constructor)) {
     type = err.constructor;
   }
 
   let message = err instanceof Error
       ? err.message
-      : err + &#x27;&#x27;;
+      : err + '';
 
   let code = /** @type {string} */(TYPE_TO_ERROR_CODE.get(type));
-  return {&#x27;error&#x27;: code, &#x27;message&#x27;: message};
+  return {'error': code, 'message': message};
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3851,11 +3844,11 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function throwDecodedError(data) {
-  if (data &#x26;&#x26; typeof data === &#x27;object&#x27; &#x26;&#x26; typeof data.error === &#x27;string&#x27;) {
+  if (data &amp;&amp; typeof data === 'object' &amp;&amp; typeof data.error === 'string') {
     let ctor = ERROR_CODE_TO_TYPE.get(data.error) || WebDriverError;
     throw new ctor(data.message);
   }
-  throw new WebDriverError(&#x27;Unknown error: &#x27; + JSON.stringify(data));
+  throw new WebDriverError('Unknown error: ' + JSON.stringify(data));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3889,8 +3882,8 @@ using, rootSelector));
     this.level = level instanceof Level ? level : getLevel(level);
     this.message = message;
     this.timestamp =
-        typeof opt_timestamp === &#x27;number&#x27; ? opt_timestamp : Date.now();
-    this.type = opt_type || &#x27;&#x27;;
+        typeof opt_timestamp === 'number' ? opt_timestamp : Date.now();
+    this.type = opt_type || '';
   }
 
   /**
@@ -3899,10 +3892,10 @@ using, rootSelector));
    */
   toJSON() {
     return {
-      &#x27;level&#x27;: this.level.name,
-      &#x27;message&#x27;: this.message,
-      &#x27;timestamp&#x27;: this.timestamp,
-      &#x27;type&#x27;: this.type
+      'level': this.level.name,
+      'message': this.message,
+      'timestamp': this.timestamp,
+      'type': this.type
     };
   }
 }</pre></li>
@@ -3920,12 +3913,12 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class Level {
 <span class="apidocCodeCommentSpan">  /**
-   * @param {string} name the level&#x27;s name.
-   * @param {number} level the level&#x27;s numeric value.
+   * @param {string} name the level's name.
+   * @param {number} level the level's numeric value.
    */
 </span>  constructor(name, level) {
-    if (level &#x3c; 0) {
-      throw new TypeError(&#x27;Level must be &#x3e;= 0&#x27;);
+    if (level &lt; 0) {
+      throw new TypeError('Level must be &gt;= 0');
     }
 
     /** @private {string} */
@@ -3935,7 +3928,7 @@ using, rootSelector));
     this.value_ = level;
   }
 
-  /** This logger&#x27;s name. */
+  /** This logger's name. */
   get name() {
     return this.name_;
   }
@@ -3964,9 +3957,9 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class LogManager {
   constructor() {
-<span class="apidocCodeCommentSpan">    /** @private {!Map&#x3c;string, !Logger&#x3e;} */
+<span class="apidocCodeCommentSpan">    /** @private {!Map&lt;string, !Logger&gt;} */
 </span>    this.loggers_ = new Map;
-    this.root_ = new Logger(&#x27;&#x27;, Level.OFF);
+    this.root_ = new Logger('', Level.OFF);
   }
 
   /**
@@ -3974,7 +3967,7 @@ using, rootSelector));
    * implicitly create the requested logger, and any of its parents, if they
    * do not yet exist.
    *
-   * @param {string} name the logger&#x27;s name.
+   * @param {string} name the logger's name.
    * @return {!Logger} the requested logger.
    */
   getLogger(name) {
@@ -3982,7 +3975,7 @@ using, rootSelector));
       return this.root_;
     }
     let parent = this.root_;
-    for (let i = name.indexOf(&#x27;.&#x27;); i != -1; i = name.indexOf(&#x27;.&#x27;, i + 1)) {
+    for (let i = name.indexOf('.'); i != -1; i = name.indexOf('.', i + 1)) {
       let parentName = name.substr(0, i);
       parent = this.createLogger_(parentName, parent);
     }
@@ -3992,8 +3985,8 @@ using, rootSelector));
   /**
    * Creates a new logger.
    *
-   * @param {string} name the logger&#x27;s name.
-   * @param {!Logger} parent the logger&#x27;s parent.
+   * @param {string} name the logger's name.
+   * @param {!Logger} parent the logger's parent.
    * @return {!Logger} the new logger.
    * @private
    */
@@ -4034,7 +4027,7 @@ using, rootSelector));
     /** @private {Logger} */
     this.parent_ = null;
 
-    /** @private {Set&#x3c;function(!Entry)&#x3e;} */
+    /** @private {Set&lt;function(!Entry)&gt;} */
     this.handlers_ = null;
   }
 
@@ -4065,7 +4058,7 @@ using, rootSelector));
     do {
       level = logger.level_;
       logger = logger.parent_;
-    } while (logger &#x26;&#x26; !level);
+    } while (logger &amp;&amp; !level);
     return level || Level.OFF;
   }
 
@@ -4076,7 +4069,7 @@ using, rootSelector));
    */
   isLoggable(level) {
     return level.value !== Level.OFF.value
-        &#x26;&#x26; level.value &#x3e;= this.getEffectiveLevel().value;
+        &amp;&amp; level.value &gt;= this.getEffectiveLevel().value;
   }
 
   /**
@@ -4108,7 +4101,7 @@ using, rootSelector));
   /**
    * Logs a message at the given level. The message may be defined as a string
    * or as a function that will return the message. If a function is provided,
-   * it will only be invoked if this logger&#x27;s
+   * it will only be invoked if this logger's
    * {@linkplain #getEffectiveLevel() effective log level} includes the given
    * `level`.
    *
@@ -4120,8 +4113,8 @@ using, rootSelector));
     if (!this.isLoggable(level)) {
       return;
     }
-    let message = &#x27;[&#x27; + this.name_ + &#x27;] &#x27;
-        + (typeof loggable === &#x27;function&#x27; ? loggable() : loggable);
+    let message = '[' + this.name_ + '] '
+        + (typeof loggable === 'function' ? loggable() : loggable);
     let entry = new Entry(level, message, Date.now());
     for (let logger = this; !!logger; logger = logger.parent_) {
       if (logger.handlers_) {
@@ -4185,7 +4178,7 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class Preferences {
   constructor() {
-<span class="apidocCodeCommentSpan">    /** @private {!Map&#x3c;string, !Level&#x3e;} */
+<span class="apidocCodeCommentSpan">    /** @private {!Map&lt;string, !Level&gt;} */
 </span>    this.prefs_ = new Map;
   }
 
@@ -4196,15 +4189,15 @@ using, rootSelector));
    * @throws {TypeError} if `type` is not a `string`.
    */
   setLevel(type, level) {
-    if (typeof type !== &#x27;string&#x27;) {
-      throw TypeError(&#x27;specified log type is not a string: &#x27; + typeof type);
+    if (typeof type !== 'string') {
+      throw TypeError('specified log type is not a string: ' + typeof type);
     }
     this.prefs_.set(type, level instanceof Level ? level : getLevel(level));
   }
 
   /**
    * Converts this instance to its JSON representation.
-   * @return {!Object&#x3c;string, string&#x3e;} The JSON representation of this set of
+   * @return {!Object&lt;string, string&gt;} The JSON representation of this set of
    *     preferences.
    */
   toJSON() {
@@ -4244,14 +4237,14 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function getLevel(nameOrValue) {
-  if (typeof nameOrValue === &#x27;string&#x27;) {
+  if (typeof nameOrValue === 'string') {
     return LEVELS_BY_NAME.get(nameOrValue) || Level.ALL;
   }
-  if (typeof nameOrValue !== &#x27;number&#x27;) {
-    throw new TypeError(&#x27;not a string or number&#x27;);
+  if (typeof nameOrValue !== 'number') {
+    throw new TypeError('not a string or number');
   }
   for (let level of ALL_LEVELS) {
-    if (nameOrValue &#x3e;= level.value) {
+    if (nameOrValue &gt;= level.value) {
       return level;
     }
   }
@@ -4344,7 +4337,7 @@ using, rootSelector));
   }
 
   /**
-   * Requests the cancellation of the computation of this promise&#x27;s value,
+   * Requests the cancellation of the computation of this promise's value,
    * rejecting the promise in the process. This method is a no-op if the promise
    * has already been resolved.
    *
@@ -4390,16 +4383,16 @@ using, rootSelector));
     var message;
     if (error instanceof CancellationError) {
       return new CancellationError(
-          opt_msg ? (opt_msg + &#x27;: &#x27; + error.message) : error.message);
+          opt_msg ? (opt_msg + ': ' + error.message) : error.message);
     } else if (opt_msg) {
       message = opt_msg;
       if (error) {
-        message += &#x27;: &#x27; + error;
+        message += ': ' + error;
       }
       return new CancellationError(message);
     }
     if (error) {
-      message = error + &#x27;&#x27;;
+      message = error + '';
     }
     return new CancellationError(message);
   }
@@ -4420,8 +4413,8 @@ using, rootSelector));
   constructor() {
     if (!usePromiseManager()) {
       throw TypeError(
-          &#x27;Cannot instantiate control flow when the promise manager has&#x27;
-              + &#x27; been disabled&#x27;);
+          'Cannot instantiate control flow when the promise manager has'
+              + ' been disabled');
     }
 
     super();
@@ -4432,7 +4425,7 @@ using, rootSelector));
     /** @private {TaskQueue} */
     this.activeQueue_ = null;
 
-    /** @private {Set&#x3c;TaskQueue&#x3e;} */
+    /** @private {Set&lt;TaskQueue&gt;} */
     this.taskQueues_ = null;
 
     /**
@@ -4445,8 +4438,8 @@ using, rootSelector));
      * by the promise system until the next turn of the event loop:
      *
      *   // Schedule 1 task that fails.
-     *   var result = promise.controlFlow().schedule(&#x27;example&#x27;,
-     *       function() { return promise.rejected(&#x27;failed&#x27;); });
+     *   var result = promise.controlFlow().schedule('example',
+     *       function() { return promise.rejected('failed'); });
      *   // Set a callback on the result. This delays reporting the unhandled
      *   // failure for 1 turn of the event loop.
      *   result.then(function() {});
@@ -4457,7 +4450,7 @@ using, rootSelector));
 
     /**
      * ID for a long running interval used to keep a Node.js process running
-     * while a control flow&#x27;s event loop is still working. This is a cheap hack
+     * while a control flow's event loop is still working. This is a cheap hack
      * required since JS events are only scheduled to run when there is
      * _actually_ something to run. When a control flow is waiting on a task,
      * there will be nothing in the JS event loop and the process would
@@ -4498,7 +4491,7 @@ using, rootSelector));
    * @return {boolean} Whether this flow is currently idle.
    */
   isIdle() {
-    return !this.shutdownTask_ &#x26;&#x26; (!this.taskQueues_ || !this.taskQueues_.size);
+    return !this.shutdownTask_ &amp;&amp; (!this.taskQueues_ || !this.taskQueues_.size);
   }
 
   /**
@@ -4518,17 +4511,17 @@ using, rootSelector));
    * stack trace from when each task was scheduled.
    * @param {string=} opt_includeStackTraces Whether to include the stack traces
    *     from when each task was scheduled. Defaults to false.
-   * @return {string} String representation of this flow&#x27;s internal state.
+   * @return {string} String representation of this flow's internal state.
    */
   getSchedule(opt_includeStackTraces) {
-    var ret = &#x27;ControlFlow::&#x27; + getUid(this);
+    var ret = 'ControlFlow::' + getUid(this);
     var activeQueue = this.activeQueue_;
     if (!this.taskQueues_ || !this.taskQueues_.size) {
       return ret;
     }
-    var childIndent = &#x27;| &#x27;;
+    var childIndent = '| ';
     for (var q of this.taskQueues_) {
-      ret += &#x27;\n&#x27; + printQ(q, childIndent);
+      ret += '\n' + printQ(q, childIndent);
     }
     return ret;
 
@@ -4553,7 +4546,7 @@ using, rootSelector));
 </span>  constructor(opt_flow) {
     var fulfill, reject;
 
-    /** @type {!ManagedPromise&#x3c;T&#x3e;} */
+    /** @type {!ManagedPromise&lt;T&gt;} */
     this.promise = new ManagedPromise(function(f, r) {
       fulfill = f;
       reject = r;
@@ -4562,14 +4555,14 @@ using, rootSelector));
     var self = this;
     var checkNotSelf = function(value) {
       if (value === self) {
-        throw new TypeError(&#x27;May not resolve a Deferred with itself&#x27;);
+        throw new TypeError('May not resolve a Deferred with itself');
       }
     };
 
     /**
      * Resolves this deferred with the given value. It is safe to call this as a
-     * normal function (with no bound &#x22;this&#x22;).
-     * @param {(T|IThenable&#x3c;T&#x3e;|Thenable)=} opt_value The fulfilled value.
+     * normal function (with no bound "this").
+     * @param {(T|IThenable&lt;T&gt;|Thenable)=} opt_value The fulfilled value.
      */
     this.fulfill = function(opt_value) {
       checkNotSelf(opt_value);
@@ -4578,7 +4571,7 @@ using, rootSelector));
 
     /**
      * Rejects this promise with the given reason. It is safe to call this as a
-     * normal function (with no bound &#x22;this&#x22;).
+     * normal function (with no bound "this").
      * @param {*=} opt_reason The rejection reason.
      */
     this.reject = function(opt_reason) {
@@ -4595,21 +4588,21 @@ using, rootSelector));
     <h2>
         <a href="#apidoc.element.protractor.promise.MultipleUnhandledRejectionError" id="apidoc.element.protractor.promise.MultipleUnhandledRejectionError">
         function <span class="apidocSignatureSpan">protractor.promise.</span>MultipleUnhandledRejectionError
-        <span class="apidocSignatureSpan">(Set&#x3c;*&#x3e;)</span>
+        <span class="apidocSignatureSpan">(Set&lt;*&gt;)</span>
         </a>
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class MultipleUnhandledRejectionError extends Error {
 <span class="apidocCodeCommentSpan">  /**
-   * @param {!(Set&#x3c;*&#x3e;)} errors The errors to report.
+   * @param {!(Set&lt;*&gt;)} errors The errors to report.
    */
 </span>  constructor(errors) {
-    super(&#x27;Multiple unhandled promise rejections reported&#x27;);
+    super('Multiple unhandled promise rejections reported');
 
     /** @override */
     this.name = this.constructor.name;
 
-    /** @type {!Set&#x3c;*&#x3e;} */
+    /** @type {!Set&lt;*&gt;} */
     this.errors = errors;
   }
 }</pre></li>
@@ -4621,16 +4614,16 @@ using, rootSelector));
     <h2>
         <a href="#apidoc.element.protractor.promise.Promise" id="apidoc.element.protractor.promise.Promise">
         function <span class="apidocSignatureSpan">protractor.promise.</span>Promise
-        <span class="apidocSignatureSpan">( * function((T|IThenable&#x3c;T&#x3e;|Thenable)</span>
+        <span class="apidocSignatureSpan">( * function((T|IThenable&lt;T&gt;|Thenable)</span>
         </a>
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">class ManagedPromise {
 <span class="apidocCodeCommentSpan">  /**
-   * @param {function( * function((T|IThenable&#x3c;T&#x3e;|Thenable)=),
+   * @param {function( * function((T|IThenable&lt;T&gt;|Thenable)=),
    *           function(*=))} resolver
    *     Function that is invoked immediately to begin computation of this
-   *     promise&#x27;s value. The function should accept a pair of callback
+   *     promise's value. The function should accept a pair of callback
    *     functions, one for fulfilling the promise and another for rejecting it.
    * @param {ControlFlow=} opt_flow The control flow
    *     this instance was created under. Defaults to the currently active flow.
@@ -4638,9 +4631,9 @@ using, rootSelector));
 </span>  constructor(resolver, opt_flow) {
     if (!usePromiseManager()) {
       throw TypeError(
-        &#x27;Unable to create a managed promise instance: the promise manager has&#x27;
-            + &#x27; been disabled by the SELENIUM_PROMISE_MANAGER environment&#x27;
-            + &#x27; variable: &#x27; + process.env[&#x27;SELENIUM_PROMISE_MANAGER&#x27;]);
+        'Unable to create a managed promise instance: the promise manager has'
+            + ' been disabled by the SELENIUM_PROMISE_MANAGER environment'
+            + ' variable: ' + process.env['SELENIUM_PROMISE_MANAGER']);
     }
     getUid(this);
 
@@ -4650,13 +4643,13 @@ using, rootSelector));
     /** @private {Error} */
     this.stack_ = null;
     if (LONG_STACK_TRACES) {
-      this.stack_ = captureStackTrace(&#x27;ManagedPromise&#x27;, &#x27;new&#x27;, this.constructor);
+      this.stack_ = captureStackTrace('ManagedPromise', 'new', this.constructor);
     }
 
-    /** @private {Thenable&#x3c;?&#x3e;} */
+    /** @private {Thenable&lt;?&gt;} */
     this.parent_ = null;
 
-    /** @private {Array&#x3c;!Task&#x3e;} */
+    /** @private {Array&lt;!Task&gt;} */
     this.callbacks_ = null;
 
     /** @private {PromiseState} */
@@ -4687,37 +4680,37 @@ using, rootSelector));
    * Creates a promise that is immediately resolved with the given value.
    *
    * @param {T=} opt_value The value to resolve.
-   * @return {!ManagedPromise&#x3c;T&#x3e;} A promise resolved with the given value.
+   * @return {!ManagedPromise&lt;T&gt;} A promise resolved with the given value.
    * @template T
    */
   static resolve(opt_value) {
     if (opt_value instanceof ManagedPromise) {
       return opt_value;
     }
-    return new ManagedPromise(resolve =&#x3e; resolve(opt_value));
+    return new ManagedPromise(resolve =&gt; resolve(opt_value));
   }
 
   /**
    * Creates a promise that is immediately rejected with the given reason.
    *
    * @param {*=} opt_reason The rejection reason.
-   * @return {!ManagedPromise&#x3c;?&#x3e;} A new rejected promise.
+   * @return {!ManagedPromise&lt;?&gt;} A new rejected promise.
    */
   static reject(opt_reason) {
-    return new ManagedPromise((_, reject) =&#x3e; reject(opt_reason));
+    return new ManagedPromise((_, reject) =&gt; reject(opt_reason));
   }
 
   /** @override */
   toString() {
-    return &#x27;ManagedPromise::&#x27; + getUid(this) +
-      &#x27; {[[PromiseStatus]]: &#x22;&#x27; + this.state_ + &#x27;&#x22;}&#x27;;
+    return 'ManagedPromise::' + getUid(this) +
+      ' {[[PromiseStatus]]: "' + this.state_ + '"}';
   }
 
   /**
    * Resolves this promise. If the new value is itself a promise, this function
    * will wait for it to be resolved before notifying the registered listeners.
-   * @param {PromiseState} newState The promise&#x27;s new state.
-   * @param {*} newValue The promise&#x27;s new value.
+   * @param {PromiseState} newState The promise's new state.
+   * @param {*} newValue The promise's new value.
    * @throws {TypeError} If {@code newValue === this}.
    * @private
    */
@@ -4729,7 +4722,7 @@ using, rootSelector));
     if (newValue === this) {
       // See promise a+, 2.3.1
       // http://promises-aplus.github.io/promises-spec/#point-48
-      newValue = new TypeError(&#x27;A promise may not resolve to itself&#x27;);
+      newValue = new TypeError('A promise may not resolve to itself');
       newState = PromiseState.REJECTED;
     }
 
@@ -4747,12 +4740,12 @@ using, rootSelector));
         return;
 
       } else if (newValue
-          &#x26;&#x26; (typeof newValue === &#x27;object&#x27; || typeof newValue === &#x27;function&#x27;)) {
+          &amp;&amp; (typeof newValue === 'object' || typeof newValue === 'function')) {
         // 2.3.3
 
         try {
           // 2.3.3.1
-          var then = newValue[&#x27;then&#x27;];
+          var then = newValue['then'];
         } catch (e) {
           // 2.3.3.2
           this.state_ = PromiseState.REJECTED;
@@ -4775,11 +4768,11 @@ using, rootSelector));
    * Schedules a task for execution. If the task function is a generator, the
    * task will be executed using {@link ./promise.consume consume()}.
    *
-   * @param {function(): (T|IThenable&#x3c;T&#x3e;)} fn The function to call to start the
+   * @param {function(): (T|IThenable&lt;T&gt;)} fn The function to call to start the
    *     task.
    * @param {string=} opt_description A description of the task for debugging
    *     purposes.
-   * @return {!Thenable&#x3c;T&#x3e;} A promise that will be resolved with the task
+   * @return {!Thenable&lt;T&gt;} A promise that will be resolved with the task
    *     result.
    * @template T
    */
@@ -4789,9 +4782,9 @@ using, rootSelector));
    * Creates a new promise using the given resolver function.
    *
    * @param {function(
-   *             function((T|IThenable&#x3c;T&#x3e;|Thenable|null)=),
+   *             function((T|IThenable&lt;T&gt;|Thenable|null)=),
    *             function(*=))} resolver
-   * @return {!Thenable&#x3c;T&#x3e;}
+   * @return {!Thenable&lt;T&gt;}
    * @template T
    */
   promise(resolver) {}
@@ -4801,7 +4794,7 @@ using, rootSelector));
    *
    * @param {number} ms The timeout delay, in milliseconds.
    * @param {string=} opt_description A description to accompany the timeout.
-   * @return {!Thenable&#x3c;void&#x3e;} A promise that will be resolved when the timeout
+   * @return {!Thenable&lt;void&gt;} A promise that will be resolved when the timeout
    *     fires.
    */
   timeout(ms, opt_description) {}
@@ -4825,18 +4818,18 @@ using, rootSelector));
    * omitted, this scheduler will wait indefinitely for the condition to be
    * satisfied.
    *
-   * @param {(!IThenable&#x3c;T&#x3e;|function())} condition The condition to poll,
+   * @param {(!IThenable&lt;T&gt;|function())} condition The condition to poll,
    *     or a promise to wait on.
    * @param {number=} opt_timeout How long to wait, in milliseconds, for the
    *     condition to hold before timing out. If omitted, the flow will wait
    *     indefinitely.
    * @param {string=} opt_message An optional error message to include if the
    *     wait times out; defaults to the empty string.
-   * @return {!Thenable&#x3c;T&#x3e;} A promise that will be fulfilled
+   * @return {!Thenable&lt;T&gt;} A promise that will be fulfilled
    *     when the condition has been satisified. The promise shall be rejected
    *     if the wait times out waiting for the condition.
    * @throws {TypeError} If condition is not a function or promise or if timeout
-   *     is not a number &#x3e;= 0.
+   *     is not a number &gt;= 0.
    * @template T
    */
   wait(condition, opt_timeout, opt_message) {}
@@ -4878,13 +4871,13 @@ using, rootSelector));
   /**
    * Registers listeners for when this instance is resolved.
    *
-   * @param {?(function(T): (R|IThenable&#x3c;R&#x3e;))=} opt_callback The
+   * @param {?(function(T): (R|IThenable&lt;R&gt;))=} opt_callback The
    *     function to call if this promise is successfully resolved. The function
-   *     should expect a single argument: the promise&#x27;s resolved value.
-   * @param {?(function(*): (R|IThenable&#x3c;R&#x3e;))=} opt_errback
+   *     should expect a single argument: the promise's resolved value.
+   * @param {?(function(*): (R|IThenable&lt;R&gt;))=} opt_errback
    *     The function to call if this promise is rejected. The function should
    *     expect a single argument: the rejection reason.
-   * @return {!Thenable&#x3c;R&#x3e;} A new promise which will be resolved with the result
+   * @return {!Thenable&lt;R&gt;} A new promise which will be resolved with the result
    *     of the invoked callback.
    * @template R
    */
@@ -4906,10 +4899,10 @@ using, rootSelector));
    *       console.error(ex);
    *     });
    *
-   * @param {function(*): (R|IThenable&#x3c;R&#x3e;)} errback The
+   * @param {function(*): (R|IThenable&lt;R&gt;)} errback The
    *     function to call if this promise is rejected. The function should
    *     expect a single argument: the rejection reason.
-   * @return {!Thenable&#x3c;R&#x3e;} A new promise which will be resolved with the result
+   * @return {!Thenable&lt;R&gt;} A new promise which will be resolved with the result
    *     of the invoked callback.
    * @template R
    */
@@ -4952,7 +4945,7 @@ using, rootSelector));
       }, reject);
     }
 
-    for (var i = 0; i &#x3c; n; ++i) {
+    for (var i = 0; i &lt; n; ++i) {
       processPromise(i);
     }
   });
@@ -4998,7 +4991,7 @@ using, rootSelector));
     var stack = Error().stack;
     if (stack) {
       e.stack = e.toString();
-      e.stack += &#x27;\n&#x27; + stack;
+      e.stack += '\n' + stack;
     }
   }
   return e;
@@ -5042,12 +5035,12 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function consume(generatorFn, opt_self, ...var_args) {
   if (!isGenerator(generatorFn)) {
-    throw new TypeError(&#x27;Input is not a GeneratorFunction: &#x27; +
+    throw new TypeError('Input is not a GeneratorFunction: ' +
         generatorFn.constructor.name);
   }
 
   let ret;
-  return ret = createPromise((resolve, reject) =&#x3e; {
+  return ret = createPromise((resolve, reject) =&gt; {
     let generator = generatorFn.apply(opt_self, var_args);
     callNext();
 
@@ -5062,7 +5055,7 @@ using, rootSelector));
     }
 
     function pump(fn, opt_arg) {
-      if (ret instanceof ManagedPromise &#x26;&#x26; !isPending(ret)) {
+      if (ret instanceof ManagedPromise &amp;&amp; !isPending(ret)) {
         return;  // Defererd was cancelled; silently abort.
       }
 
@@ -5154,8 +5147,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function delayed(ms) {
-  return createPromise(resolve =&#x3e; {
-    setTimeout(() =&#x3e; resolve(), ms);
+  return createPromise(resolve =&gt; {
+    setTimeout(() =&gt; resolve(), ms);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5171,9 +5164,9 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function filter(arr, fn, opt_self) {
-  return createPromise(resolve =&#x3e; resolve(arr)).then(v =&#x3e; {
+  return createPromise(resolve =&gt; resolve(arr)).then(v =&gt; {
     if (!Array.isArray(v)) {
-      throw TypeError(&#x27;not an array&#x27;);
+      throw TypeError('not an array');
     }
     var arr = /** @type {!Array} */(v);
     return createPromise(function(fulfill, reject) {
@@ -5181,12 +5174,12 @@ using, rootSelector));
       var values = [];
       var valuesLength = 0;
       (function processNext(i) {
-        for (; i &#x3c; n; i++) {
+        for (; i &lt; n; i++) {
           if (i in arr) {
             break;
           }
         }
-        if (i &#x3e;= n) {
+        if (i &gt;= n) {
           fulfill(values);
           return;
         }
@@ -5279,7 +5272,7 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isGenerator(fn) {
-  return fn.constructor.name === &#x27;GeneratorFunction&#x27;;
+  return fn.constructor.name === 'GeneratorFunction';
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -5298,8 +5291,8 @@ using, rootSelector));
     // Use array notation so the Closure compiler does not obfuscate away our
     // contract.
     return value
-        &#x26;&#x26; (typeof value === &#x27;object&#x27; || typeof value === &#x27;function&#x27;)
-        &#x26;&#x26; typeof value[&#x27;then&#x27;] === &#x27;function&#x27;;
+        &amp;&amp; (typeof value === 'object' || typeof value === 'function')
+        &amp;&amp; typeof value['then'] === 'function';
   } catch (ex) {
     return false;
   }
@@ -5317,21 +5310,21 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function map(arr, fn, opt_self) {
-  return createPromise(resolve =&#x3e; resolve(arr)).then(v =&#x3e; {
+  return createPromise(resolve =&gt; resolve(arr)).then(v =&gt; {
     if (!Array.isArray(v)) {
-      throw TypeError(&#x27;not an array&#x27;);
+      throw TypeError('not an array');
     }
     var arr = /** @type {!Array} */(v);
     return createPromise(function(fulfill, reject) {
       var n = arr.length;
       var values = new Array(n);
       (function processNext(i) {
-        for (; i &#x3c; n; i++) {
+        for (; i &lt; n; i++) {
           if (i in arr) {
             break;
           }
         }
-        if (i &#x3e;= n) {
+        if (i &gt;= n) {
           fulfill(values);
           return;
         }
@@ -5380,11 +5373,11 @@ using, rootSelector));
     <li>description and source-code<pre class="apidocCodePre">function setDefaultFlow(flow) {
   if (!usePromiseManager()) {
     throw Error(
-        &#x27;You  may not change set the control flow when the promise&#x27;
-            +&#x27; manager is disabled&#x27;);
+        'You  may not change set the control flow when the promise'
+            +' manager is disabled');
   }
   if (activeFlows.length) {
-    throw Error(&#x27;You may only change the default flow while it is active&#x27;);
+    throw Error('You may only change the default flow while it is active');
   }
   defaultFlow = flow;
 }</pre></li>
@@ -5405,7 +5398,7 @@ using, rootSelector));
     return value.then(opt_callback, opt_errback);
   }
 
-  return createPromise(resolve =&#x3e; resolve(value))
+  return createPromise(resolve =&gt; resolve(value))
       .then(opt_callback, opt_errback);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5427,7 +5420,7 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function ableToSwitchToFrame(frame) {
   var condition;
-  if (typeof frame === &#x27;number&#x27; || frame instanceof webdriver.WebElement) {
+  if (typeof frame === 'number' || frame instanceof webdriver.WebElement) {
     condition = attemptToSwitchFrames;
   } else {
     condition = function(driver) {
@@ -5440,7 +5433,7 @@ using, rootSelector));
     };
   }
 
-  return new Condition(&#x27;to be able to switch to frame&#x27;, condition);
+  return new Condition('to be able to switch to frame', condition);
 
   function attemptToSwitchFrames(driver, frame) {
     return driver.switchTo().frame(frame).then(
@@ -5465,14 +5458,14 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function alertIsPresent() {
-  return new Condition(&#x27;for alert to be present&#x27;, function(driver) {
+  return new Condition('for alert to be present', function(driver) {
     return driver.switchTo().alert().catch(function(e) {
       if (!(e instanceof error.NoSuchAlertError
-        // XXX: Workaround for GeckoDriver error `TypeError: can&#x27;t convert null
+        // XXX: Workaround for GeckoDriver error `TypeError: can't convert null
         // to object`. For more details, see
         // https://github.com/SeleniumHQ/selenium/pull/2137
         || (e instanceof error.WebDriverError
-          &#x26;&#x26; e.message === `can&#x27;t convert null to object`)
+          &amp;&amp; e.message === `can't convert null to object`)
         )) {
         throw e;
       }
@@ -5492,8 +5485,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementIsDisabled(element) {
-  return new WebElementCondition(&#x27;until element is disabled&#x27;, function() {
-    return element.isEnabled().then(v =&#x3e; v ? null : element);
+  return new WebElementCondition('until element is disabled', function() {
+    return element.isEnabled().then(v =&gt; v ? null : element);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5509,8 +5502,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementIsEnabled(element) {
-  return new WebElementCondition(&#x27;until element is enabled&#x27;, function() {
-    return element.isEnabled().then(v =&#x3e; v ? element : null);
+  return new WebElementCondition('until element is enabled', function() {
+    return element.isEnabled().then(v =&gt; v ? element : null);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5526,8 +5519,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementIsNotSelected(element) {
-  return new WebElementCondition(&#x27;until element is not selected&#x27;, function() {
-    return element.isSelected().then(v =&#x3e; v ? null : element);
+  return new WebElementCondition('until element is not selected', function() {
+    return element.isSelected().then(v =&gt; v ? null : element);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5543,8 +5536,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementIsNotVisible(element) {
-  return new WebElementCondition(&#x27;until element is not visible&#x27;, function() {
-    return element.isDisplayed().then(v =&#x3e; v ? null : element);
+  return new WebElementCondition('until element is not visible', function() {
+    return element.isDisplayed().then(v =&gt; v ? null : element);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5560,8 +5553,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementIsSelected(element) {
-  return new WebElementCondition(&#x27;until element is selected&#x27;, function() {
-    return element.isSelected().then(v =&#x3e; v ? element : null);
+  return new WebElementCondition('until element is selected', function() {
+    return element.isSelected().then(v =&gt; v ? element : null);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5577,8 +5570,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementIsVisible(element) {
-  return new WebElementCondition(&#x27;until element is visible&#x27;, function() {
-    return element.isDisplayed().then(v =&#x3e; v ? element : null);
+  return new WebElementCondition('until element is visible', function() {
+    return element.isDisplayed().then(v =&gt; v ? element : null);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5596,8 +5589,8 @@ using, rootSelector));
     <li>description and source-code<pre class="apidocCodePre">function elementLocated(locator) {
   locator = by.checkedLocator(locator);
   let locatorStr =
-      typeof locator === &#x27;function&#x27; ? &#x27;by function()&#x27; : locator + &#x27;&#x27;;
-  return new WebElementCondition(&#x27;for element to be located &#x27; + locatorStr,
+      typeof locator === 'function' ? 'by function()' : locator + '';
+  return new WebElementCondition('for element to be located ' + locatorStr,
       function(driver) {
         return driver.findElements(locator).then(function(elements) {
           return elements[0];
@@ -5617,9 +5610,9 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementTextContains(element, substr) {
-  return new WebElementCondition(&#x27;until element text contains&#x27;, function() {
+  return new WebElementCondition('until element text contains', function() {
     return element.getText()
-        .then(t =&#x3e; t.indexOf(substr) != -1 ? element : null);
+        .then(t =&gt; t.indexOf(substr) != -1 ? element : null);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5635,8 +5628,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementTextIs(element, text) {
-  return new WebElementCondition(&#x27;until element text is&#x27;, function() {
-    return element.getText().then(t =&#x3e; t === text ? element : null);
+  return new WebElementCondition('until element text is', function() {
+    return element.getText().then(t =&gt; t === text ? element : null);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5652,8 +5645,8 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function elementTextMatches(element, regex) {
-  return new WebElementCondition(&#x27;until element text matches&#x27;, function() {
-    return element.getText().then(t =&#x3e; regex.test(t) ? element : null);
+  return new WebElementCondition('until element text matches', function() {
+    return element.getText().then(t =&gt; regex.test(t) ? element : null);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5671,12 +5664,12 @@ using, rootSelector));
     <li>description and source-code<pre class="apidocCodePre">function elementsLocated(locator) {
   locator = by.checkedLocator(locator);
   let locatorStr =
-      typeof locator === &#x27;function&#x27; ? &#x27;by function()&#x27; : locator + &#x27;&#x27;;
+      typeof locator === 'function' ? 'by function()' : locator + '';
   return new Condition(
-      &#x27;for at least one element to be located &#x27; + locatorStr,
+      'for at least one element to be located ' + locatorStr,
       function(driver) {
         return driver.findElements(locator).then(function(elements) {
-          return elements.length &#x3e; 0 ? elements : null;
+          return elements.length &gt; 0 ? elements : null;
         });
       });
 }</pre></li>
@@ -5693,7 +5686,7 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function stalenessOf(element) {
-  return new Condition(&#x27;element to become stale&#x27;, function() {
+  return new Condition('element to become stale', function() {
     return element.getTagName().then(
         function() { return false; },
         function(e) {
@@ -5718,7 +5711,7 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function titleContains(substr) {
   return new Condition(
-      &#x27;for title to contain &#x27; + JSON.stringify(substr),
+      'for title to contain ' + JSON.stringify(substr),
       function(driver) {
         return driver.getTitle().then(function(title) {
           return title.indexOf(substr) !== -1;
@@ -5739,7 +5732,7 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function titleIs(title) {
   return new Condition(
-      &#x27;for title to be &#x27; + JSON.stringify(title),
+      'for title to be ' + JSON.stringify(title),
       function(driver) {
         return driver.getTitle().then(function(t) {
           return t === title;
@@ -5759,7 +5752,7 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function titleMatches(regex) {
-  return new Condition(&#x27;for title to match &#x27; + regex, function(driver) {
+  return new Condition('for title to match ' + regex, function(driver) {
     return driver.getTitle().then(function(title) {
       return regex.test(title);
     });
@@ -5779,7 +5772,7 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function urlContains(substrUrl) {
   return new Condition(
-      &#x27;for URL to contain &#x27; + JSON.stringify(substrUrl),
+      'for URL to contain ' + JSON.stringify(substrUrl),
       function(driver) {
         return driver.getCurrentUrl().then(function(url) {
           return url.indexOf(substrUrl) !== -1;
@@ -5800,7 +5793,7 @@ using, rootSelector));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function urlIs(url) {
   return new Condition(
-      &#x27;for URL to be &#x27; + JSON.stringify(url),
+      'for URL to be ' + JSON.stringify(url),
       function(driver) {
         return driver.getCurrentUrl().then(function(u) {
           return u === url;
@@ -5820,7 +5813,7 @@ using, rootSelector));
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function urlMatches(regex) {
-  return new Condition(&#x27;for URL to match &#x27; + regex, function(driver) {
+  return new Condition('for URL to match ' + regex, function(driver) {
     return driver.getCurrentUrl().then(function(url) {
       return regex.test(url);
     });
@@ -5838,3 +5831,4 @@ using, rootSelector));
     ]
 </div>
 </div>
+</body></html>
